@@ -1,5 +1,27 @@
 ---
 title: "Collaborator Analysis"
 format: html
+author: "Anna Poulton" 
 ---
 
+# Exercise: Explore, Clean, and Wrangle Data
+
+
+## Set up
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+## Clean data
+
+```{r}
+lobster_traps <- readr::read_csv(here::here("data", "Lobster_Trap_Counts_All_Years_20210519.csv")) %>%
+    janitor::clean_names()
+
+head(lobster_traps)
+colnames(lobster_traps)
+str(lobster_traps)
+```
