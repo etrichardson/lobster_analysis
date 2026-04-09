@@ -1,5 +1,25 @@
 ---
 title: "Owner Analysis"
+author: "Emily Richardson"
 format: html
 ---
+# Exercise: Explore, Clean, and Wrangle Data
 
+## Load packages
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(janitor)
+```
+
+## Read in data and explore
+
+```{r}
+lobster_abundance <- readr::read_csv(here::here("data", "Lobster_Abundance_All_Years_20240411.csv")) %>%
+    janitor::clean_names()
+head(lobster_abundance)
+summary(lobster_abundance)
+```
