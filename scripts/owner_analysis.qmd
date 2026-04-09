@@ -23,3 +23,41 @@ lobster_abundance <- readr::read_csv(here::here("data", "Lobster_Abundance_All_Y
 head(lobster_abundance)
 summary(lobster_abundance)
 ```
+
+## Convert nulls
+
+
+```{r}
+lobster_abundance <- lobster_abundance %>% 
+    mutate(size_mm = na_if(size_mm, -99999))
+
+lobster_abundance <- lobster_abundance %>% 
+    mutate(size_mm = if_else(condition = (size_mm == -99999), true = NA, false = size_mm))
+```
+
+## Remove observations from Naples Reef
+
+```{r}
+lobster_abundance <- lobster_abundance %>%
+    filter(site != "NAPL")
+```
+
+## Section out specific Arroyo Quemado data
+
+
+```{r}
+aque_70mm <- lobster_abundance %>% 
+    filter(site == "AQUE" & size_mm >= 70)
+```
+
+##summarize maximum carapace length by site and month
+
+```{r}
+lobster_summary <- lobster_abundance %>%
+    group_by(site, month) %>%
+    summarize(max_length = max(size_mm, na.rm = TRUE),
+            .groups = 'drop')
+
+lobster_summary
+
+```
